@@ -93,6 +93,24 @@ class Tree {
         return arr;
     }
 
+    levelOrderIteration() {
+        if (this.root == null) return [];
+
+        let queue = [this.root];
+        let result = [];
+
+        while (queue.length) {
+            // cache the 1st queue node
+            const node = queue.shift();;
+            // add it to result;
+            result.push(node.data);
+            // add children to the queue if any
+            if (node.leftLeg != null) queue.push(node.leftLeg);
+            if (node.rightLeg != null) queue.push(node.rightLeg);
+        }
+        return result;
+    }
+
 
     preorder(arr = [], root = this.root) { // Read the node data, then left subtree, then right subtree
         // Base case
@@ -200,8 +218,8 @@ function createRdmArray() {
     // init an empty array
     const array = [];
     // create an array of 30 rdm numbers
-    for (let i = 0; array.length <= 30; i++) {
-        let number = Math.floor(Math.random() * 50);
+    for (let i = 0; array.length <= 10; i++) {
+        let number = Math.floor(Math.random() * 15);
         if (!array.includes(number)) array.push(number);
     }
     return array;
@@ -209,7 +227,7 @@ function createRdmArray() {
 
 let randomTree = generateRdmTree(); // generates a tree from a random array
 randomTree.prettyPrint();
-console.log(randomTree.isBalanced()); // true
+console.log(randomTree.levelOrderIteration());
 // console.log(randomTree.levelOrder());
 // console.log(randomTree.preorder());
 // console.log(randomTree.inorder());
